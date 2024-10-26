@@ -1,5 +1,5 @@
 // pages/api/departments/index.js
-import supabase from '@/pages/utils/connect'; // Ensure your Supabase client is configured in utils
+import supabase from '@/utils/connect'; // Ensure your Supabase client is configured in utils
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
