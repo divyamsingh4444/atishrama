@@ -1,24 +1,34 @@
-import Component from "@/components/login-btn";
-import localFont from "next/font/local";
+// pages/index.js
+import React,{ useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import { Box,Typography } from '@mui/material';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const HomePage = () => {
+  const [open,setOpen] = useState(true);
 
-export default function Home() {
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      hello world
-      <Component />
-    </div>
+    <Box sx={{ display: 'flex',minHeight: '100vh' }}>
+      <Sidebar open={open} setOpen={setOpen} />
+
+      {/* Main Content Area */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          padding: 3,
+          marginLeft: open ? '40px' : '60px', // Adjusts based on sidebar width
+          transition: 'margin-left 0.3s',
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          Welcome to the Dashboard
+        </Typography>
+        <Typography variant="body1">
+          Your main content goes here. You can add more components or sections within this area as needed.
+        </Typography>
+      </Box>
+    </Box>
   );
-}
+};
+
+export default HomePage;
