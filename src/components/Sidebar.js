@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 const drawerWidth = 240;
 
-const Sidebar = ({ open,setOpen }) => {
+const Sidebar = ({ open,setOpen,setActiveView }) => {
     const { data: session } = useSession();
 
     const navigationItems = [
@@ -27,6 +27,8 @@ const Sidebar = ({ open,setOpen }) => {
             sx={{
                 width: open ? drawerWidth : 60,
                 flexShrink: 0,
+                height: '100vh', // Make sure it takes the full height of the viewport
+                position: 'fixed', // Sticks the sidebar to the left
                 '& .MuiDrawer-paper': {
                     width: open ? drawerWidth : 60,
                     boxSizing: 'border-box',
@@ -34,14 +36,14 @@ const Sidebar = ({ open,setOpen }) => {
                     color: '#ffffff',
                     position: 'relative',
                     transition: 'width 0.3s',
+                    height: '100vh', // Ensures drawer paper also stays full-height
                 },
             }}
         >
             {/* Header with Logo and Title */}
             <Box
                 sx={{
-                    position: 'absolute',
-                    top: 0,
+                    position: 'relative',
                     height: '15%',
                     width: '100%',
                     display: 'flex',
@@ -51,7 +53,6 @@ const Sidebar = ({ open,setOpen }) => {
                 }}
             >
                 <Toolbar disableGutters sx={{ width: '100%',paddingX: 1 }}>
-                    {/* Logo and Title */}
                     <Box display="flex" alignItems="center" gap={1}>
                         <Image src="/favicon.ico" alt="Logo" width={30} height={30} />
                         {open && (
@@ -63,14 +64,12 @@ const Sidebar = ({ open,setOpen }) => {
                 </Toolbar>
             </Box>
 
-            <Divider sx={{ position: 'absolute',top: '15%',width: '100%' }} />
+            <Divider sx={{ width: '100%' }} />
 
             {/* User Profile Section */}
             {session && (
                 <Box
                     sx={{
-                        position: 'absolute',
-                        top: '15%',
                         height: '25%',
                         width: '100%',
                         display: 'flex',
@@ -102,22 +101,19 @@ const Sidebar = ({ open,setOpen }) => {
                 </Box>
             )}
 
-            <Divider sx={{ position: 'absolute',top: '40%',width: '100%' }} />
+            <Divider />
 
             {/* Navigation Links Section */}
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '40%',
-                    bottom: '40px', // Allow space for the toggle button
-                    width: '100%',
-                    overflowY: 'auto', // Scroll if content overflows
-                }}
-            >
+            <Box sx={{ flexGrow: 1,overflowY: 'auto',width: '100%' }}>
                 <List>
                     {navigationItems.map((item) => (
                         (!item.role || item.role === session?.user?.role) && (
-                            <ListItem button key={item.text} sx={{ justifyContent: open ? 'initial' : 'center' }}>
+                            <ListItem
+                                button
+                                key={item.text}
+                                onClick={() => setActiveView(item.text)} // Set the active view on click
+                                sx={{ justifyContent: open ? 'initial' : 'center' }}
+                            >
                                 <ListItemIcon sx={{ color: '#ffffff',minWidth: 0,marginRight: open ? 3 : 'auto' }}>
                                     {item.icon}
                                 </ListItemIcon>
@@ -129,7 +125,7 @@ const Sidebar = ({ open,setOpen }) => {
             </Box>
 
             {/* Toggle Button at the Bottom */}
-            <Box sx={{ position: 'absolute',bottom: 0,width: '100%',padding: 1,textAlign: 'center' }}>
+            <Box sx={{ width: '100%',padding: 1,textAlign: 'center' }}>
                 <IconButton onClick={() => setOpen(!open)} sx={{ color: '#ffffff' }}>
                     {open ? '<' : '>'}
                 </IconButton>

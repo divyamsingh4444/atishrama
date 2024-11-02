@@ -4,12 +4,15 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import '../styles/globals.css';
 import { AuthProvider } from "../context/AuthProvider";
+import { EmployeeProvider } from "../context/EmployeeContext";
 
 export default function App({ Component,pageProps: { session,...pageProps } }) {
   return (
     <SessionProvider session={session}>
       <AuthProvider>
-        <Component {...pageProps} />
+        <EmployeeProvider>
+          <Component {...pageProps} />
+        </EmployeeProvider>
       </AuthProvider>
     </SessionProvider>
   );

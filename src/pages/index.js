@@ -2,15 +2,16 @@
 import React,{ useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { Box,Typography } from '@mui/material';
+import Dashboard from '../components/features/dashboard';
+import Teams from '../components/features/teams';
 
 const HomePage = () => {
   const [open,setOpen] = useState(true);
+  const [activeView,setActiveView] = useState('Dashboard');
 
   return (
     <Box sx={{ display: 'flex',minHeight: '100vh' }}>
-      <Sidebar open={open} setOpen={setOpen} />
-
-      {/* Main Content Area */}
+      <Sidebar open={open} setOpen={setOpen} setActiveView={setActiveView} />
       <Box
         component="main"
         sx={{
@@ -20,12 +21,8 @@ const HomePage = () => {
           transition: 'margin-left 0.3s',
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          Welcome to the Dashboard
-        </Typography>
-        <Typography variant="body1">
-          Your main content goes here. You can add more components or sections within this area as needed.
-        </Typography>
+        {activeView === 'Dashboard' && <Dashboard />}
+        {activeView === 'Teams' && <Teams />}
       </Box>
     </Box>
   );
