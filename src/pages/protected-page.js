@@ -1,5 +1,5 @@
 // pages/protected-page.js
-import { withAuth } from "../context/AuthProvider";
+import { withAuth } from "@/contexts/AuthProvider";
 
 function ProtectedPage() {
     return <div>This page is protected.</div>;

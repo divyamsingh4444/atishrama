@@ -1,9 +1,9 @@
 // pages/index.js
 import React,{ useState } from 'react';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '@/components/Sidebar';
 import { Box,Typography } from '@mui/material';
-import Dashboard from '../components/features/dashboard';
-import Teams from '../components/features/teams';
+import Dashboard from '@/components/screens/dashboard';
+import Teams from '@/components/screens/teams';
 
 const HomePage = () => {
   const [open,setOpen] = useState(true);

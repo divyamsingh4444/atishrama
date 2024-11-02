@@ -2,18 +2,16 @@
 import { SessionProvider,useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import '../styles/globals.css';
-import { AuthProvider } from "../context/AuthProvider";
-import { EmployeeProvider } from "../context/EmployeeContext";
+import '@/styles/globals.css';
+import { AuthProvider } from "@/contexts/AuthProvider";
+import { EmployeeProvider } from "@/contexts/EmployeeContext";
 
 export default function App({ Component,pageProps: { session,...pageProps } }) {
   return (
     <SessionProvider session={session}>
-      <AuthProvider>
         <EmployeeProvider>
           <Component {...pageProps} />
         </EmployeeProvider>
-      </AuthProvider>
     </SessionProvider>
   );
   // const router = useRouter();
