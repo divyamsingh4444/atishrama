@@ -1,5 +1,5 @@
-// pages/api/getShiftStats.js
-import { supabase } from '@/utils/connect'
+// pages/api/dashboard/getShiftStats.js
+import supabase from '@/utils/connect';
 
 export default async function handler(req,res) {
     const { employeeId } = req.query;
