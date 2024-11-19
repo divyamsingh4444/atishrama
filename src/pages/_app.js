@@ -9,11 +9,11 @@ import { EmployeeProvider } from "@/contexts/EmployeeContext";
 export default function App({ Component,pageProps: { session,...pageProps } }) {
   return (
     <SessionProvider session={session}>
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <EmployeeProvider>
           <Component {...pageProps} />
         </EmployeeProvider>
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </SessionProvider>
   );
   // const router = useRouter();
